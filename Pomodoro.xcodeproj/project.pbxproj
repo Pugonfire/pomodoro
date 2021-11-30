@@ -12,7 +12,6 @@
 		DC32C7422755D796006B0074 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC32C7412755D796006B0074 /* Assets.xcassets */; };
 		DC32C7452755D796006B0074 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC32C7442755D796006B0074 /* Preview Assets.xcassets */; };
 		DC32C74E2755D84E006B0074 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC32C74D2755D84E006B0074 /* MenuView.swift */; };
-		DC32C7502755E320006B0074 /* MacMenuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC32C74F2755E320006B0074 /* MacMenuApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,7 +22,6 @@
 		DC32C7442755D796006B0074 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DC32C7462755D796006B0074 /* pomodoro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pomodoro.entitlements; sourceTree = "<group>"; };
 		DC32C74D2755D84E006B0074 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
-		DC32C74F2755E320006B0074 /* MacMenuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacMenuApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +55,6 @@
 			isa = PBXGroup;
 			children = (
 				DC32C74C2755D82A006B0074 /* Menu */,
-				DC32C74F2755E320006B0074 /* MacMenuApp.swift */,
 				DC32C73D2755D794006B0074 /* pomodoroApp.swift */,
 				DC32C73F2755D794006B0074 /* ContentView.swift */,
 				DC32C7412755D796006B0074 /* Assets.xcassets */,
@@ -155,7 +152,6 @@
 			files = (
 				DC32C7402755D794006B0074 /* ContentView.swift in Sources */,
 				DC32C74E2755D84E006B0074 /* MenuView.swift in Sources */,
-				DC32C7502755E320006B0074 /* MacMenuApp.swift in Sources */,
 				DC32C73E2755D794006B0074 /* pomodoroApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
