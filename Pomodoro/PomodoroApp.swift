@@ -1,6 +1,6 @@
 //
-//  PomodoroApp.swift
-//  Pomodoro
+//  pomodoroApp.swift
+//  pomodoro
 //
 //  Created by Max Z on 30/11/21.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct PomodoroApp: App {
+struct pomodoroApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

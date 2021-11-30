@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  Pomodoro
+//  pomodoro
 //
 //  Created by Max Z on 30/11/21.
 //
@@ -9,8 +9,10 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack {
+            Text("MacOS Menu App")
+        }
+        .frame(width: 300, height: 300)
     }
 }
 
