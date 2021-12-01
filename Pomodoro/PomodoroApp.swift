@@ -38,7 +38,34 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         popOver.contentViewController = NSViewController()
         popOver.contentViewController?.view = NSHostingView(rootView: menuView)
         
+        // Making view as main view
+        popOver.contentViewController?.view.window?.makeKey()
+        
         // Creating status bar button
+        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+        
+        // Safe check if status bar is available enough
+        if let MenuButton = statusItem?.button{
+            
+            MenuButton.image = NSImage(systemSymbolName: "icloud.and.arrow.up.fill", accessibilityDescription: nil)
+            MenuButton.action = #selector(MenuButtonToggle)
+        }
+    }
+    
+    // Button Action
+    @objc func MenuButtonToggle(sender: AnyObject) {
+        
+        if popOver.isShown{
+            popOver.performClose(sender)
+        }
+        else {
+            // Showing Popover
+            if let menuButton = statusItem?.button{
+                
+                // Top get button location for popover arrow
+                self.popOver.show(relativeTo: menuButton.bounds, of: menuButton, preferredEdge: NSRectEdge.minY)
+            }
+        }
     }
 }
 
