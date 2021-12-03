@@ -8,17 +8,16 @@
 import SwiftUI
 
 @main
-struct MacMenuApp: App {
+struct pomodoroApp: App {
     // Connect AppDelegate
     @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            PreferenceView()
         }
     }
 }
 
-// Build Menu Button and Pop Over Menu...
 class AppDelegate: NSObject, NSApplicationDelegate {
     
     // Status Bar Item
@@ -27,7 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var popOver = NSPopover()
     func applicationDidFinishLaunching(_ notification: Notification) {
         
-        let menuView = MenuView()
+        let timerView = TimerView()
         
         // Create Popover
         popOver.behavior = .transient
@@ -36,7 +35,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // and setting view as SwiftUI view
         // with the help of hosting controller
         popOver.contentViewController = NSViewController()
-        popOver.contentViewController?.view = NSHostingView(rootView: menuView)
+        popOver.contentViewController?.view = NSHostingView(rootView: timerView)
         
         // Making view as main view
         popOver.contentViewController?.view.window?.makeKey()
@@ -47,7 +46,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Safe check if status bar is available enough
         if let MenuButton = statusItem?.button{
             
-            MenuButton.image = NSImage(systemSymbolName: "icloud.and.arrow.up.fill", accessibilityDescription: nil)
+            MenuButton.image = NSImage(systemSymbolName: "hourglass", accessibilityDescription: nil)
             MenuButton.action = #selector(MenuButtonToggle)
         }
     }
@@ -67,5 +66,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
+    
+    var window: NSWindow!
+        var preferencesWindow: NSWindow!
+
+        @objc func openPreferencesWindow() {
+            if nil == preferencesWindow {
+                let preferencesView = PreferenceView()
+                preferencesWindow = NSWindow(
+                    contentRect: NSRect(x: 20, y: 20, width: 480, height: 300),
+                    styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
+                    backing: .buffered,
+                    defer: false)
+                preferencesWindow.center()
+                preferencesWindow.setFrameAutosaveName("Preference")
+                preferencesWindow.isReleasedWhenClosed = false
+                preferencesWindow.contentView = NSHostingView(rootView: preferencesView)
+            }
+            preferencesWindow.makeKeyAndOrderFront(nil)
+        }
+
 }
 

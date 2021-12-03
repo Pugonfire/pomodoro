@@ -8,20 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		DC32C73E2755D794006B0074 /* pomodoroApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC32C73D2755D794006B0074 /* pomodoroApp.swift */; };
-		DC32C7402755D794006B0074 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC32C73F2755D794006B0074 /* ContentView.swift */; };
 		DC32C7422755D796006B0074 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC32C7412755D796006B0074 /* Assets.xcassets */; };
 		DC32C7452755D796006B0074 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC32C7442755D796006B0074 /* Preview Assets.xcassets */; };
 		DC32C74E2755D84E006B0074 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC32C74D2755D84E006B0074 /* MenuView.swift */; };
+		DCB25DD227579A9600F27562 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB25DD127579A9600F27562 /* TimerView.swift */; };
+		DCB25DD72759F94E00F27562 /* PreferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB25DD62759F94E00F27562 /* PreferenceView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DC32C73A2755D794006B0074 /* pomodoro.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pomodoro.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC32C73D2755D794006B0074 /* pomodoroApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pomodoroApp.swift; sourceTree = "<group>"; };
-		DC32C73F2755D794006B0074 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		DC32C7412755D796006B0074 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DC32C7442755D796006B0074 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DC32C7462755D796006B0074 /* pomodoro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pomodoro.entitlements; sourceTree = "<group>"; };
 		DC32C74D2755D84E006B0074 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		DCB25DD127579A9600F27562 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
+		DCB25DD52759EBED00F27562 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		DCB25DD62759F94E00F27562 /* PreferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,9 +57,11 @@
 		DC32C73C2755D794006B0074 /* pomodoro */ = {
 			isa = PBXGroup;
 			children = (
-				DC32C74C2755D82A006B0074 /* Menu */,
+				DCB25DD52759EBED00F27562 /* Info.plist */,
+				DCB25DD127579A9600F27562 /* TimerView.swift */,
+				DC32C74D2755D84E006B0074 /* MenuView.swift */,
 				DC32C73D2755D794006B0074 /* pomodoroApp.swift */,
-				DC32C73F2755D794006B0074 /* ContentView.swift */,
+				DCB25DD62759F94E00F27562 /* PreferenceView.swift */,
 				DC32C7412755D796006B0074 /* Assets.xcassets */,
 				DC32C7462755D796006B0074 /* pomodoro.entitlements */,
 				DC32C7432755D796006B0074 /* Preview Content */,
@@ -70,14 +75,6 @@
 				DC32C7442755D796006B0074 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		DC32C74C2755D82A006B0074 /* Menu */ = {
-			isa = PBXGroup;
-			children = (
-				DC32C74D2755D84E006B0074 /* MenuView.swift */,
-			);
-			path = Menu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,8 +147,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DC32C7402755D794006B0074 /* ContentView.swift in Sources */,
 				DC32C74E2755D84E006B0074 /* MenuView.swift in Sources */,
+				DCB25DD72759F94E00F27562 /* PreferenceView.swift in Sources */,
+				DCB25DD227579A9600F27562 /* TimerView.swift in Sources */,
 				DC32C73E2755D794006B0074 /* pomodoroApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -288,12 +286,14 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = pomodoro/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pugonfire.pomodoro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -315,12 +315,14 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = pomodoro/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pugonfire.pomodoro;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
