@@ -8,41 +8,52 @@
 import SwiftUI
 
 struct TimerView: View {
-    @AppStorage("workDuration") var workDuration = 25
-    @AppStorage("restDuration") var restDuration = 5
     
-    @State var isTimerRunning = false
+    @State private var isTimerRunning = false
     @State private var startTime = Date()
-    @State private var timeLeft = 25
+    @State private var timeLeft = 0
     @State private var last5Sec = false
     @State private var isWork = true
+    @State private var started = false
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    @AppStorage("workDuration") var workDuration = 25
+    @AppStorage("restDuration") var restDuration = 5
+    @AppStorage("goal") var goal = 10
 
     var body: some View {
         
         VStack {
             // Goal Display
-            Text("Goal")
-                .font(.title)
-            
-            // Timer Display
-            Text("\(timeLeft/60):\(timeLeft % 60, specifier: "%.2d")")
-                .onAppear() {
-                    self.resetTimer()
-                }
-                .onReceive(timer) { _ in
-                    if timeLeft > 0 && isTimerRunning {
-                        if timeLeft <= 6 {
-                            last5Sec = true
+            Text("0/\(goal)")
+                .font(.headline)
+            VStack {
+                // Timer Display
+                if started {
+                    Text("\(timeLeft/60):\(timeLeft % 60, specifier: "%.2d")")
+                        .onReceive(timer) { _ in
+                            if timeLeft > 0 && isTimerRunning {
+                                if timeLeft <= 6 {
+                                    last5Sec = true
+                                }
+                                timeLeft -= 1
+                            } else if timeLeft == 0 {
+                                isWork.toggle()
+                                started = false
+                                self.resetTimer()
+                            }
                         }
-                        timeLeft -= 1
-                    } else if timeLeft == 0 {
-                        isWork.toggle()
-                        self.resetTimer()
+                } else {
+                    // Since duration is always in minutes
+                    if isWork {
+                        Text("\(workDuration):00")
+                    } else {
+                        Text("\(restDuration):00")
                     }
                 }
-                .font(.system(size: 60))
-                .foregroundColor(isWork ? (last5Sec ? Color.red : Color.primary) : Color.green)
+            }
+            .font(.system(size: 60))
+            .foregroundColor(isWork ? (last5Sec ? Color.red : Color.primary) : Color.green)
             
             // Controller
             HStack {
@@ -90,7 +101,7 @@ struct TimerView: View {
             .font(.system(size: 24))
         }
         .padding()
-        .frame(width: 200, height: 150)
+        .frame(width: 200, height: 130)
     }
     func pauseTimer() {
         isTimerRunning = false
@@ -98,15 +109,28 @@ struct TimerView: View {
     }
         
     func startTimer() {
+        
+        // if starting afresh
+        if !started {
+            resetTimer()
+            started = true
+        }
+        
+        print("startTimer:", started)
         isTimerRunning = true
         timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     }
     
     func resetTimer() {
+        started = false
+        print("setTimer:", started)
+        
         if isWork {
             timeLeft = workDuration
+//            timeLeft = workDuration * 60
         } else {
             timeLeft = restDuration
+//            timeLeft = restDuration * 60
         }
         last5Sec = false
         isTimerRunning = false
@@ -120,6 +144,8 @@ struct TimerView: View {
 
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
-        TimerView()
+        Group {
+            TimerView()
+        }
     }
 }

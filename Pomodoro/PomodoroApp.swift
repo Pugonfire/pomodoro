@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+class GameSettings: ObservableObject {
+    @Published var score = 0
+}
+
 @main
 struct pomodoroApp: App {
     // Connect AppDelegate
@@ -20,6 +24,7 @@ struct pomodoroApp: App {
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     
+    @AppStorage("refresh") var refresh = false
     // Status Bar Item
     var statusItem: NSStatusItem?
     // Popover

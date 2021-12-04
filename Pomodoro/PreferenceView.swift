@@ -12,36 +12,41 @@ struct PreferenceView: View {
     @AppStorage("restDuration") var restDuration = 5
     @AppStorage("goal") var goal = 10
     
+    @State private var changeMade = false
+    
     var body: some View {
-        VStack{
-            Text(Image(systemName: "gear"))
-                .font(.system(size: 80))
-                .frame(height: 100.0)
-                
-            Stepper("Work Duration: \(workDuration.formatted()) min", value: $workDuration, in: 5...120, step: 5)
-            Stepper("Rest Duration: \(restDuration.formatted()) min", value: $restDuration, in: 5...120, step: 5)
-            Stepper("Daily Goal: \(goal.formatted()) sessions", value: $goal, in: 1...120, step: 5)
+        VStack {
             
-            Spacer()
-                .frame(height: 40.0)
-            HStack {
-                Button(action: {
-//                    self.saveSettings()
-                }, label: {
-                    Text("Save")
-                }).keyboardShortcut(.defaultAction)
-                Button(action: {
-//                    self.resetSettings()
-                }, label: {
-                    Text("Reset")
-                })
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("Work:")
+                    Spacer()
+                    Stepper(" \(workDuration.formatted()) min", value: $workDuration, in: 5...120, step: 5)
+                }
+                
+                HStack {
+                    Text("Rest:")
+                    Spacer()
+                    Stepper(" \(restDuration.formatted()) min", value: $restDuration, in: 5...120, step: 5)
+                }
+                
+                HStack {
+                    Text("Goal:")
+                    Spacer()
+                    Stepper(" \(goal.formatted()) sessions", value: $goal, in: 1...120, step: 5)
+                }
+                
             }
+            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            
+            Button(action: {
+                self.resetSettings()
+            }, label: {
+                Text("Reset")
+            })
         }
-        .frame(width: 200, height: 250)
-    }
-    func saveSettings() {
-        UserDefaults.standard.set(self.workDuration, forKey: "workDuration")
-        UserDefaults.standard.set(self.restDuration, forKey: "restDuration")
+        .frame(width: 200, height: 180)
+        .navigationTitle("Settings")
     }
     
     func resetSettings() {
