@@ -24,6 +24,9 @@ struct TimerView: View {
     var body: some View {
         
         VStack {
+            // Test
+            Text("\(TimerModel.menubar)")
+            
             // Goal Display
             Text("0/\(goal)")
                 .font(.headline)
@@ -104,12 +107,13 @@ struct TimerView: View {
         .frame(width: 200, height: 130)
     }
     func pauseTimer() {
+        TimerModel.menubar = "Yah" // Test
         isTimerRunning = false
         self.timer.upstream.connect().cancel()
     }
         
     func startTimer() {
-        
+        TimerModel.menubar = "Boo" // Test
         // if starting afresh
         if !started {
             resetTimer()
@@ -143,6 +147,7 @@ struct TimerView: View {
 }
 
 struct TimerView_Previews: PreviewProvider {
+    
     static var previews: some View {
         Group {
             TimerView()

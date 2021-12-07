@@ -7,12 +7,9 @@
 
 import SwiftUI
 
-class GameSettings: ObservableObject {
-    @Published var score = 0
-}
-
 @main
 struct pomodoroApp: App {
+    
     // Connect AppDelegate
     @NSApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
@@ -24,11 +21,11 @@ struct pomodoroApp: App {
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     
-    @AppStorage("refresh") var refresh = false
     // Status Bar Item
     var statusItem: NSStatusItem?
     // Popover
     var popOver = NSPopover()
+    
     func applicationDidFinishLaunching(_ notification: Notification) {
         
         let timerView = TimerView()
@@ -49,10 +46,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
         
         // Safe check if status bar is available enough
-        if let MenuButton = statusItem?.button{
-            
-            MenuButton.image = NSImage(systemSymbolName: "hourglass", accessibilityDescription: nil)
-            MenuButton.action = #selector(MenuButtonToggle)
+        if let TimerButton = statusItem?.button{
+            Timer.scheduledTimer(withTimeInterval: 0.33, repeats: true) { _ in
+                TimerButton.title = TimerModel.menubar
+            }
+//            MenuButton.image = NSImage(systemSymbolName: "hourglass", accessibilityDescription: nil)
+            TimerButton.action = #selector(MenuButtonToggle)
         }
     }
     
