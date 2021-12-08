@@ -9,17 +9,9 @@ import SwiftUI
 
 struct TimerView: View {
     
-//    @State private var isTimerRunning = false
-//    @State private var startTime = Date()
-//    @State private var timeLeft = 0
-//    @State private var last5Sec = false
-//    @State private var isWork = true
-//    @State private var started = false
-    @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    
     @ObservedObject var globalTimerModel: TimerModel = TimerModel.sharedInstance
     
-    @AppStorage("workDuration") var workDuration = 25
+    @AppStorage("workDuration") var workDuration = 25 // in minutes
     @AppStorage("restDuration") var restDuration = 5
     @AppStorage("goal") var goal = 10
 
@@ -31,33 +23,18 @@ struct TimerView: View {
                 .font(.headline)
             VStack {
                 // Timer Display
-                Text("\(self.globalTimerModel.timeLeft/60):\(self.globalTimerModel.timeLeft % 60, specifier: "%.2d")")
+                if self.globalTimerModel.started {
+                    Text("\(self.globalTimerModel.timeLeft/60):\(self.globalTimerModel.timeLeft % 60, specifier: "%.2d")")
+                } else {
+                    if self.globalTimerModel.isWork {
+                        Text("\(workDuration):00")
+                    } else {
+                        Text("\(restDuration):00")
+                    }
+                }
             }
-//                if TimerModel.started {
-//                    Text("\(TimerModel.timeLeft/60):\(TimerModel.timeLeft % 60, specifier: "%.2d")")
-//                        .onReceive(timer) { _ in
-//                            if TimerModel.timeLeft > 0 && TimerModel.isTimerRunning {
-//                                if TimerModel.timeLeft <= 6 {
-//                                    TimerModel.last5Sec = true
-//                                }
-//                                TimerModel.timeLeft -= 1
-//                            } else if TimerModel.timeLeft == 0 {
-//                                TimerModel.isWork.toggle()
-//                                TimerModel.started = false
-//                                TimerModel.resetTimer(workDuration: workDuration, restDuration: restDuration)
-//                            }
-//                        }
-//                } else {
-//                    // Since duration is always in minutes
-//                    if TimerModel.isWork {
-//                        Text("\(workDuration):00")
-//                    } else {
-//                        Text("\(restDuration):00")
-//                    }
-//                }
-//            }
-//            .font(.system(size: 60))
-//            .foregroundColor(TimerModel.isWork ? (TimerModel.last5Sec ? Color.red : Color.primary) : Color.green)
+            .font(.system(size: 60))
+            .foregroundColor(self.globalTimerModel.isWork ? (self.globalTimerModel.last5Sec ? Color.red : Color.primary) : Color.green)
             
             // Controller
             HStack {

@@ -48,10 +48,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         // Safe check if status bar is available enough
         if let TimerButton = statusItem?.button{
+            
+            // NSStatusItem to be refreshed (30fps)
             Timer.scheduledTimer(withTimeInterval: 0.33, repeats: true) { _ in
-                TimerButton.title = String(self.globalTimerModel.timeLeft)
+                if self.globalTimerModel.started {
+                    TimerButton.image = nil
+                    TimerButton.title =  "\(self.globalTimerModel.timeLeft/60):" + String(format: "%.2d", (self.globalTimerModel.timeLeft % 60))
+    
+                    
+                } else {
+                    TimerButton.title = ""
+                    TimerButton.image = NSImage(systemSymbolName: "hourglass", accessibilityDescription: nil)
+                }
             }
-//            MenuButton.image = NSImage(systemSymbolName: "hourglass", accessibilityDescription: nil)
+            
+                
             TimerButton.action = #selector(MenuButtonToggle)
         }
     }

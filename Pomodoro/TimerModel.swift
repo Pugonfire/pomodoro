@@ -11,7 +11,7 @@ class TimerModel: ObservableObject {
     static let sharedInstance = TimerModel()
     
     @Published var isTimerRunning = false
-    @Published var timeLeft = 0
+    @Published var timeLeft = 0 // in seconds
     @Published var last5Sec = false
     @Published var isWork = true
     @Published var started = false
@@ -34,19 +34,29 @@ class TimerModel: ObservableObject {
         self.isTimerRunning = true
         self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
             self.timeLeft -= 1
+            
+            // logic
+            if self.timeLeft == 0 {
+                self.isWork.toggle()
+                self.resetTimer(workDuration: workDuration, restDuration: restDuration)
+            } else if self.timeLeft <= 5 {
+                self.last5Sec = true
+            }
+            
         }
     }
     
     func resetTimer(workDuration: Int, restDuration: Int) {
+        self.timer.invalidate()
         self.started = false
         print("setTimer:", self.started)
         
         if self.isWork {
-            self.timeLeft = workDuration
-//            timeLeft = workDuration * 60
+//            self.timeLeft = workDuration // for testing
+            timeLeft = workDuration * 60
         } else {
-            self.timeLeft = restDuration
-//            timeLeft = restDuration * 60
+//            self.timeLeft = restDuration // for testing
+            timeLeft = restDuration * 60
         }
         self.last5Sec = false
         self.isTimerRunning = false
