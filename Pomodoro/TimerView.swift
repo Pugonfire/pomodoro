@@ -9,13 +9,15 @@ import SwiftUI
 
 struct TimerView: View {
     
-    @State private var isTimerRunning = false
-    @State private var startTime = Date()
-    @State private var timeLeft = 0
-    @State private var last5Sec = false
-    @State private var isWork = true
-    @State private var started = false
+//    @State private var isTimerRunning = false
+//    @State private var startTime = Date()
+//    @State private var timeLeft = 0
+//    @State private var last5Sec = false
+//    @State private var isWork = true
+//    @State private var started = false
     @State private var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    @ObservedObject var globalTimerModel: TimerModel = TimerModel.sharedInstance
     
     @AppStorage("workDuration") var workDuration = 25
     @AppStorage("restDuration") var restDuration = 5
@@ -23,47 +25,46 @@ struct TimerView: View {
 
     var body: some View {
         
-        VStack {
-            // Test
-            Text("\(TimerModel.menubar)")
-            
+        VStack {            
             // Goal Display
             Text("0/\(goal)")
                 .font(.headline)
             VStack {
                 // Timer Display
-                if started {
-                    Text("\(timeLeft/60):\(timeLeft % 60, specifier: "%.2d")")
-                        .onReceive(timer) { _ in
-                            if timeLeft > 0 && isTimerRunning {
-                                if timeLeft <= 6 {
-                                    last5Sec = true
-                                }
-                                timeLeft -= 1
-                            } else if timeLeft == 0 {
-                                isWork.toggle()
-                                started = false
-                                self.resetTimer()
-                            }
-                        }
-                } else {
-                    // Since duration is always in minutes
-                    if isWork {
-                        Text("\(workDuration):00")
-                    } else {
-                        Text("\(restDuration):00")
-                    }
-                }
+                Text("\(self.globalTimerModel.timeLeft/60):\(self.globalTimerModel.timeLeft % 60, specifier: "%.2d")")
             }
-            .font(.system(size: 60))
-            .foregroundColor(isWork ? (last5Sec ? Color.red : Color.primary) : Color.green)
+//                if TimerModel.started {
+//                    Text("\(TimerModel.timeLeft/60):\(TimerModel.timeLeft % 60, specifier: "%.2d")")
+//                        .onReceive(timer) { _ in
+//                            if TimerModel.timeLeft > 0 && TimerModel.isTimerRunning {
+//                                if TimerModel.timeLeft <= 6 {
+//                                    TimerModel.last5Sec = true
+//                                }
+//                                TimerModel.timeLeft -= 1
+//                            } else if TimerModel.timeLeft == 0 {
+//                                TimerModel.isWork.toggle()
+//                                TimerModel.started = false
+//                                TimerModel.resetTimer(workDuration: workDuration, restDuration: restDuration)
+//                            }
+//                        }
+//                } else {
+//                    // Since duration is always in minutes
+//                    if TimerModel.isWork {
+//                        Text("\(workDuration):00")
+//                    } else {
+//                        Text("\(restDuration):00")
+//                    }
+//                }
+//            }
+//            .font(.system(size: 60))
+//            .foregroundColor(TimerModel.isWork ? (TimerModel.last5Sec ? Color.red : Color.primary) : Color.green)
             
             // Controller
             HStack {
                 
-                if isTimerRunning {
+                if self.globalTimerModel.isTimerRunning {
                     Button(action: {
-                        self.pauseTimer()
+                        self.globalTimerModel.pauseTimer()
                     }, label: {
                         Image(systemName: "pause")
                             .foregroundColor(.primary)
@@ -71,7 +72,7 @@ struct TimerView: View {
                         .buttonStyle(PlainButtonStyle())
                 } else {
                     Button(action: {
-                        self.startTimer()
+                        self.globalTimerModel.startTimer(workDuration: workDuration, restDuration: restDuration)
                     }, label: {
                         Image(systemName: "play")
                             .foregroundColor(.primary)
@@ -79,16 +80,16 @@ struct TimerView: View {
                     })
                         .buttonStyle(PlainButtonStyle())
                 }
-                if isWork {
+                if self.globalTimerModel.isWork {
                     Button(action: {
-                        self.resetTimer()
+                        self.globalTimerModel.resetTimer(workDuration: workDuration, restDuration: restDuration)
                     }, label: {
                         Image(systemName: "gobackward")
                     })
                 } else {
                     Button(action: {
-                        isWork.toggle() // skip rest
-                        self.resetTimer()
+                        self.globalTimerModel.isWork.toggle() // skip rest
+                        self.globalTimerModel.resetTimer(workDuration: workDuration, restDuration: restDuration)
                     }, label: {
                         Image(systemName: "multiply")
                     })
@@ -106,39 +107,39 @@ struct TimerView: View {
         .padding()
         .frame(width: 200, height: 130)
     }
-    func pauseTimer() {
-        TimerModel.menubar = "Yah" // Test
-        isTimerRunning = false
-        self.timer.upstream.connect().cancel()
-    }
-        
-    func startTimer() {
-        TimerModel.menubar = "Boo" // Test
-        // if starting afresh
-        if !started {
-            resetTimer()
-            started = true
-        }
-        
-        print("startTimer:", started)
-        isTimerRunning = true
-        timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
-    }
-    
-    func resetTimer() {
-        started = false
-        print("setTimer:", started)
-        
-        if isWork {
-            timeLeft = workDuration
-//            timeLeft = workDuration * 60
-        } else {
-            timeLeft = restDuration
-//            timeLeft = restDuration * 60
-        }
-        last5Sec = false
-        isTimerRunning = false
-    }
+//    func pauseTimer() {
+//        TimerModel.menubar = "Yah" // Test
+//        TimerModel.isTimerRunning = false
+//        self.timer.upstream.connect().cancel()
+//    }
+//
+//    func startTimer() {
+//        TimerModel.menubar = "Boo" // Test
+//        // if starting afresh
+//        if !TimerModel.started {
+//            resetTimer()
+//            TimerModel.started = true
+//        }
+//
+//        print("startTimer:", TimerModel.started)
+//        TimerModel.isTimerRunning = true
+//        timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+//    }
+//
+//    func resetTimer() {
+//        TimerModel.started = false
+//        print("setTimer:", TimerModel.started)
+//
+//        if TimerModel.isWork {
+//            TimerModel.timeLeft = workDuration
+////            timeLeft = workDuration * 60
+//        } else {
+//            TimerModel.timeLeft = restDuration
+////            timeLeft = restDuration * 60
+//        }
+//        TimerModel.last5Sec = false
+//        TimerModel.isTimerRunning = false
+//    }
     
     func openSettings() {
         NSApp.sendAction(#selector(AppDelegate.openPreferencesWindow), to: nil, from:nil)
