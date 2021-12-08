@@ -11,6 +11,7 @@
 		DC32C7422755D796006B0074 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC32C7412755D796006B0074 /* Assets.xcassets */; };
 		DC32C7452755D796006B0074 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC32C7442755D796006B0074 /* Preview Assets.xcassets */; };
 		DC48716D275F4ECA00DBA8A8 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC48716C275F4ECA00DBA8A8 /* TimerModel.swift */; };
+		DC4871702760C12400DBA8A8 /* SessionRecords.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DC48716E2760C12400DBA8A8 /* SessionRecords.xcdatamodeld */; };
 		DCB25DD227579A9600F27562 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB25DD127579A9600F27562 /* TimerView.swift */; };
 		DCB25DD72759F94E00F27562 /* PreferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCB25DD62759F94E00F27562 /* PreferenceView.swift */; };
 /* End PBXBuildFile section */
@@ -22,6 +23,7 @@
 		DC32C7442755D796006B0074 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DC32C7462755D796006B0074 /* pomodoro.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = pomodoro.entitlements; sourceTree = "<group>"; };
 		DC48716C275F4ECA00DBA8A8 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
+		DC48716F2760C12400DBA8A8 /* SessionRecords.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SessionRecords.xcdatamodel; sourceTree = "<group>"; };
 		DCB25DD127579A9600F27562 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		DCB25DD52759EBED00F27562 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		DCB25DD62759F94E00F27562 /* PreferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceView.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				DCB25DD62759F94E00F27562 /* PreferenceView.swift */,
 				DC32C7412755D796006B0074 /* Assets.xcassets */,
 				DC32C7462755D796006B0074 /* pomodoro.entitlements */,
+				DC48716E2760C12400DBA8A8 /* SessionRecords.xcdatamodeld */,
 				DC32C7432755D796006B0074 /* Preview Content */,
 			);
 			path = pomodoro;
@@ -150,6 +153,7 @@
 				DCB25DD72759F94E00F27562 /* PreferenceView.swift in Sources */,
 				DC48716D275F4ECA00DBA8A8 /* TimerModel.swift in Sources */,
 				DCB25DD227579A9600F27562 /* TimerView.swift in Sources */,
+				DC4871702760C12400DBA8A8 /* SessionRecords.xcdatamodeld in Sources */,
 				DC32C73E2755D794006B0074 /* pomodoroApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,6 +356,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DC48716E2760C12400DBA8A8 /* SessionRecords.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DC48716F2760C12400DBA8A8 /* SessionRecords.xcdatamodel */,
+			);
+			currentVersion = DC48716F2760C12400DBA8A8 /* SessionRecords.xcdatamodel */;
+			path = SessionRecords.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DC32C7322755D794006B0074 /* Project object */;
 }
